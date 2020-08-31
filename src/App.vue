@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <ComponentA v-on:addFruit="updateFruits" />
+    <ComponentB 
+      :fruits="fruits" 
+      v-on:removeFruit="removeFruit" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ComponentA from './components/ComponentA'
+import ComponentB from './components/ComponentB'
 
 export default {
   name: 'App',
+  data: function() {
+    return {
+      fruits: []
+    }
+  },
   components: {
-    HelloWorld
+    ComponentA, ComponentB
+  },
+  methods: {
+    updateFruits(fruit) {
+      //console.log('updateFruits', fruit)
+      this.fruits.push(fruit);
+    },
+    removeFruit(fruitName) {
+      this.fruits = 
+        this.fruits.filter(fruit => fruit.name !== fruitName)
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
